@@ -12,7 +12,7 @@ export default function Videos() {
       setPage(page + 1);
     }
   };
-  // Mehedi here i use filter for videos insted of using videos  because again its render double time
+  // Here i use filter for videos instead of using videos  because again its render double time
   const uniqueVideos = videos.filter(
     (video, index, self) =>
       index === self.findIndex((v) => v.youtubeID === video.youtubeID)
@@ -28,7 +28,11 @@ export default function Videos() {
         >
           {uniqueVideos.map((video, index) =>
             video.noq > 0 ? (
-              <Link to={`quiz/${video.youtubeID}`} key={video.youtubeID}>
+              <Link
+                to={`quiz/${video.youtubeID}`}
+                state={{ videoTitle: video.title }}
+                key={video.youtubeID}
+              >
                 <Video
                   title={`${index + 1}-${video.title}`}
                   id={video.youtubeID}

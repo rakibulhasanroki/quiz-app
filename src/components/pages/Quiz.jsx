@@ -1,7 +1,7 @@
 import Answer from "../Answer.jsx";
 import ProgressBar from "../ProgressBar";
 import MiniPlayer from "../MiniPlayer";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import useQuestions from "../hooks/useQuestions.jsx";
 import { useEffect, useReducer, useState } from "react";
 import _ from "lodash";
@@ -39,6 +39,8 @@ export default function Quiz() {
   const { loading, error, questions } = useQuestions(id);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [qen, dispatch] = useReducer(reducer, initialState);
+  const location = useLocation();
+  const { videoTitle } = location.state || {};
 
   function handleAnswerChange(e, index) {
     dispatch({
@@ -107,7 +109,7 @@ export default function Quiz() {
             progress={percentage}
             submit={submit}
           />
-          <MiniPlayer />
+          <MiniPlayer id={id} title={videoTitle} />
         </>
       )}
     </>
